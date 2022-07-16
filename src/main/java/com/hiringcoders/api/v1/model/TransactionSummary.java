@@ -18,7 +18,7 @@ public class TransactionSummary {
 	
 	private BigDecimal purchaseValue;
 	
-	private OffsetDateTime purchaseDateTime;
+	private OffsetDateTime purchaseDate;
 	
 	private TransactionType type;
 	
