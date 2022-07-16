@@ -14,33 +14,29 @@ public class PurchaseValidator implements ConstraintValidator<Purchase, Object> 
 	private String purchaseIdField;
 	private String purchaseValueField;
 	private String purchaseDateField;
-	
+
 	@Override
 	public void initialize(Purchase constraint) {
 		this.purchaseIdField = constraint.purchaseIdField();
 		this.purchaseValueField = constraint.purchaseValueField();
 		this.purchaseDateField = constraint.purchaseDateField();
 	}
-	
+
 	@Override
 	public boolean isValid(Object objetoValidacao, ConstraintValidatorContext context) {
 		try {
 			String id = (String) BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), purchaseIdField)
 					.getReadMethod().invoke(objetoValidacao);
-			
-			BigDecimal value = (BigDecimal) BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), purchaseValueField)
-					.getReadMethod().invoke(objetoValidacao);
-			
-			OffsetDateTime date = (OffsetDateTime) BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), purchaseDateField)
-					.getReadMethod().invoke(objetoValidacao);
-			
-			if ((id == null && value == null && date == null) || 
-					(id != null && value != null && date != null)) {
-				return true;
-			} else {
-				return false;
-			}
-			
+
+			BigDecimal value = (BigDecimal) BeanUtils
+					.getPropertyDescriptor(objetoValidacao.getClass(), purchaseValueField).getReadMethod()
+					.invoke(objetoValidacao);
+
+			OffsetDateTime date = (OffsetDateTime) BeanUtils
+					.getPropertyDescriptor(objetoValidacao.getClass(), purchaseDateField).getReadMethod()
+					.invoke(objetoValidacao);
+
+			return ((id == null && value == null && date == null) || (id != null && value != null && date != null));
 		} catch (Exception e) {
 			throw new ValidationException(e);
 		}
