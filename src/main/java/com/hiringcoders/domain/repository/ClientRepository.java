@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.hiringcoders.domain.model.Client;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long>, ClientRepositoryQueries {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 	
 	Optional<Client> findByUuid(String uuid);
 	
