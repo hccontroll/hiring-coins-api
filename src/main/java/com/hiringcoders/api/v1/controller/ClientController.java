@@ -22,6 +22,7 @@ import com.hiringcoders.api.v1.input.ClientInput;
 import com.hiringcoders.api.v1.input.disassembler.ClientInputDisassembler;
 import com.hiringcoders.api.v1.model.ClientModel;
 import com.hiringcoders.api.v1.model.assembler.ClientModelAssembler;
+import com.hiringcoders.domain.filter.ClientFilter;
 import com.hiringcoders.domain.model.Client;
 import com.hiringcoders.domain.repository.ClientRepository;
 import com.hiringcoders.domain.service.ClientRegistrationService;
@@ -43,8 +44,8 @@ public class ClientController {
 	private ClientInputDisassembler clientInputDisassembler;
 
 	@GetMapping
-	public Page<ClientModel> list(@PageableDefault(size = 10) Pageable pageable) {
-		Page<Client> clientsPage = clientRepository.findAll(pageable);
+	public Page<ClientModel> list(ClientFilter filter, @PageableDefault(size = 10) Pageable pageable) {
+		Page<Client> clientsPage = clientRepository.findUsingFilter(filter, pageable);
 
 		List<ClientModel> clientsModelList = clientModelAssembler.toCollectionModel(clientsPage.getContent());
 

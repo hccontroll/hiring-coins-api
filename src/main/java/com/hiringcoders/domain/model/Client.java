@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
+import com.hiringcoders.domain.exception.InsufficientCoinBalanceException;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +48,36 @@ public class Client {
 	@PrePersist
 	private void generateUUID() {
 		setUuid(UUID.randomUUID().toString());
+	}
+
+	public void registerTransaction(Transaction transaction) {
+		transaction.setClient(this);
+		
+		if (transaction.isCredit()) {
+			creditTransaction(transaction);
+		} else {
+			debitTransaction(transaction);
+		}
+		
+		registerLastPurchase(transaction);
+	}
+	
+	private void creditTransaction(Transaction transaction) {
+		this.coinBalance += transaction.getCoins();
+	}
+
+	private void debitTransaction(Transaction transaction) {
+		if (transaction.getCoins() > this.coinBalance) {
+			throw new InsufficientCoinBalanceException();
+		}
+		
+		this.coinBalance -= transaction.getCoins();
+	}
+	
+	private void registerLastPurchase(Transaction transaction) {
+		if (transaction.getPurchaseDate() != null) {
+			this.setLastPurchase(transaction.getPurchaseDate());
+		}		
 	}
 	
 }
