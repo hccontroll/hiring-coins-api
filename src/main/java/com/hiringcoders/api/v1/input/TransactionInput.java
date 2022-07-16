@@ -21,8 +21,10 @@ public class TransactionInput {
 	@Size(max = 40)
 	private String clientUuid;
 	
+	@Size(max = 100)
 	private String purchaseId;
 	
+	@Positive
 	private BigDecimal purchaseValue;
 	
 	private OffsetDateTime purchaseDate;
