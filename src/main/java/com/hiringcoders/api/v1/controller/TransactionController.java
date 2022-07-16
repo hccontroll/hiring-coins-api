@@ -17,6 +17,8 @@ import com.hiringcoders.api.v1.input.TransactionInput;
 import com.hiringcoders.api.v1.input.disassembler.TransactionInputDisassembler;
 import com.hiringcoders.api.v1.model.TransactionModel;
 import com.hiringcoders.api.v1.model.assembler.TransactionModelAssembler;
+import com.hiringcoders.domain.exception.ClientNotFoundException;
+import com.hiringcoders.domain.exception.DomainException;
 import com.hiringcoders.domain.model.Transaction;
 import com.hiringcoders.domain.service.TransactionRegistrationService;
 
@@ -42,11 +44,15 @@ public class TransactionController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public TransactionModel adicionar(@RequestBody @Valid TransactionInput transactionInput) {
-		Transaction transaction = transactionInputDisassembler.toDomainObject(transactionInput);
-		transaction = transactionRegistration.save(transaction);
+	public TransactionModel adicionar(@RequestBody @Valid TransactionInput transactionInput) {		
+		try {
+			Transaction transaction = transactionInputDisassembler.toDomainObject(transactionInput);
+			transaction = transactionRegistration.save(transaction);
 
-		return transactionModelAssembler.toModel(transaction);
+			return transactionModelAssembler.toModel(transaction);
+		} catch (ClientNotFoundException e) {
+			throw new DomainException(e.getMessage());
+		}	
 	}
 
 
