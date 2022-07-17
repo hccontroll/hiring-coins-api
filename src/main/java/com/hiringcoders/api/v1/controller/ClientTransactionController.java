@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hiringcoders.api.v1.model.TransactionSummary;
 import com.hiringcoders.api.v1.model.assembler.TransactionSummaryAssembler;
+import com.hiringcoders.api.v1.openapi.controller.ClientTransactionControllerOpenApi;
 import com.hiringcoders.domain.model.Client;
 import com.hiringcoders.domain.model.Transaction;
 import com.hiringcoders.domain.repository.TransactionRepository;
@@ -22,7 +23,7 @@ import com.hiringcoders.domain.service.ClientRegistrationService;
 
 @RestController
 @RequestMapping(path = "/v1/clients/{clientUuid}/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ClientTransactionController {
+public class ClientTransactionController implements ClientTransactionControllerOpenApi {
 	
 	@Autowired
 	private ClientRegistrationService clientRegistration;
