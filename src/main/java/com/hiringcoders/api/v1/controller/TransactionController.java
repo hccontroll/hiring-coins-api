@@ -17,6 +17,7 @@ import com.hiringcoders.api.v1.input.TransactionInput;
 import com.hiringcoders.api.v1.input.disassembler.TransactionInputDisassembler;
 import com.hiringcoders.api.v1.model.TransactionModel;
 import com.hiringcoders.api.v1.model.assembler.TransactionModelAssembler;
+import com.hiringcoders.api.v1.openapi.controller.TransactionControllerOpenApi;
 import com.hiringcoders.domain.exception.ClientNotFoundException;
 import com.hiringcoders.domain.exception.DomainException;
 import com.hiringcoders.domain.model.Transaction;
@@ -24,7 +25,7 @@ import com.hiringcoders.domain.service.TransactionRegistrationService;
 
 @RestController
 @RequestMapping(path = "/v1/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TransactionController {
+public class TransactionController implements TransactionControllerOpenApi {
 
 	@Autowired
 	private TransactionModelAssembler transactionModelAssembler;
@@ -35,13 +36,15 @@ public class TransactionController {
 	@Autowired
 	private TransactionInputDisassembler transactionInputDisassembler;
 	
-	@GetMapping(path = "/{transactionUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Override
+	@GetMapping(path = "/{transactionUuid}")
 	public TransactionModel find(@PathVariable String transactionUuid) {
 		Transaction transaction = transactionRegistration.findTransactionByUuid(transactionUuid);
 
 		return transactionModelAssembler.toModel(transaction);
 	}
 	
+	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public TransactionModel adicionar(@RequestBody @Valid TransactionInput transactionInput) {		
