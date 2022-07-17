@@ -1,7 +1,5 @@
 package com.hiringcoders.api.v1.openapi.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.hiringcoders.api.exceptionhandler.Problem;
 import com.hiringcoders.api.v1.input.TransactionInput;
 import com.hiringcoders.api.v1.model.TransactionModel;

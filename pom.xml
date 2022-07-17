@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.hiringcoders</groupId>
 	<artifactId>hiring-coins-api</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>hiring-coins-api</name>
 	<description>API Hiring Coins</description>
 	<properties>
@@ -85,7 +85,6 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<failOnError>false</failOnError>
 					<generatedSourcesDirectory>src/main/java</generatedSourcesDirectory>
 				</configuration>
 			</plugin>
