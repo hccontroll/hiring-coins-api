@@ -15,7 +15,7 @@
 	<name>hiring-coins-api</name>
 	<description>API Hiring Coins</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<spring-doc.version>1.6.9</spring-doc.version>
 	</properties>
@@ -23,10 +23,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,12 +77,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<generatedSourcesDirectory>src/main/java</generatedSourcesDirectory>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

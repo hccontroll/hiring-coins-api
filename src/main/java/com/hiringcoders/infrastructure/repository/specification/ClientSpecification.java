@@ -9,7 +9,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.hiringcoders.domain.filter.ClientFilter;
 import com.hiringcoders.domain.model.Client;
-import com.hiringcoders.domain.model.Client_;
 
 public class ClientSpecification {
 
@@ -19,15 +18,15 @@ public class ClientSpecification {
 			var predicates = new ArrayList<Predicate>();
 
 			if (StringUtils.hasText(filter.getUuid())) {
-				predicates.add(builder.equal(root.get(Client_.uuid), filter.getUuid()));
+				predicates.add(builder.equal(root.get("uuid"), filter.getUuid()));
 			}
 
 			if (StringUtils.hasText(filter.getName())) {
-				predicates.add(builder.equal(builder.lower(root.get(Client_.name)), filter.getName().toLowerCase()));
+				predicates.add(builder.equal(builder.lower(root.get("name")), filter.getName().toLowerCase()));
 			}
 
 			if (StringUtils.hasText(filter.getEmail())) {
-				predicates.add(builder.equal(builder.lower(root.get(Client_.email)), filter.getEmail().toLowerCase()));
+				predicates.add(builder.equal(builder.lower(root.get("email")), filter.getEmail().toLowerCase()));
 			}
 
 			return builder.and(predicates.toArray(new Predicate[0]));
